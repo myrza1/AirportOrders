@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirportOrders", "AirportOrders\AirportOrders.csproj", "{7176FD1A-C318-43B1-A411-40EC637EC31C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Session", "Session\Session.csproj", "{BEF099B7-ED57-49A8-9AD5-64421F2CCC8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{3C8C390E-A450-442D-946D-5F6286E46630}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{7176FD1A-C318-43B1-A411-40EC637EC31C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7176FD1A-C318-43B1-A411-40EC637EC31C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7176FD1A-C318-43B1-A411-40EC637EC31C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEF099B7-ED57-49A8-9AD5-64421F2CCC8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEF099B7-ED57-49A8-9AD5-64421F2CCC8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEF099B7-ED57-49A8-9AD5-64421F2CCC8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEF099B7-ED57-49A8-9AD5-64421F2CCC8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C8C390E-A450-442D-946D-5F6286E46630}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C8C390E-A450-442D-946D-5F6286E46630}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C8C390E-A450-442D-946D-5F6286E46630}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C8C390E-A450-442D-946D-5F6286E46630}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

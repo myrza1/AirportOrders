@@ -58,7 +58,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\Functional.cs" />
-    <Compile Include="Models\flight.cs" />
     <Compile Include="Models\ServicesCheklist.cs" />
     <Compile Include="Service References\ServiceReferenceSita\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -142,6 +141,16 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{3c8c390e-a450-442d-946d-5f6286e46630}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Session\Session.csproj">
+      <Project>{bef099b7-ed57-49a8-9ad5-64421f2ccc8a}</Project>
+      <Name>Session</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AirportOrders.Data;
+using AirportOrders.ServiceReferenceSita;
+using Session;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -14,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace AirportOrders
 {
@@ -53,8 +57,20 @@ namespace AirportOrders
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            XNamespace am = "http://www.sita.aero/ams6-xml-api-messages";
+            XNamespace ad = "http://www.sita.aero/ams6-xml-api-datatypes";
+            XElement root;
+            AMSIntegrationServiceClient proxy = new AMSIntegrationServiceClient("BasicHttpBinding_IAMSIntegrationService", "http://tse2-ams-apv/SITAAMSIntegrationService/v2/SITAAMSIntegrationService/");
+            //proxy.UpdateFlight( );
+            root = proxy.GetFlights(_Token, DateTime.Parse("2018-02-08"), DateTime.Parse("2018-02-08"), "TSE", AirportIdentifierType.IATACode);
 
-            LoadDate.Text = "01-01-2018";
+            Functional.getFlights(root);
+
+            Broker bFlight = new Broker();
+            bFlight.FillListBoxFFMfromAMS(Functional.ArrivalFligts);
+
+
+            proxy.Close();
         }
 
         private void btnONOFF_Click(object sender, RoutedEventArgs e)
@@ -68,10 +84,6 @@ namespace AirportOrders
 
                 //Создаем таймер и выставляем его параметры
 
-
-
-
-                
                 j.Enabled = true;
 
                 //Интервал 10000мс - 10с.
@@ -103,8 +115,20 @@ namespace AirportOrders
 
         private void scanWeb(object sender)
         {
+            XNamespace am = "http://www.sita.aero/ams6-xml-api-messages";
+            XNamespace ad = "http://www.sita.aero/ams6-xml-api-datatypes";
+            XElement root;
             Dispatcher.Invoke(new Action(() => LoadDate.Text = "2007-10-6"));
+            AMSIntegrationServiceClient proxy = new AMSIntegrationServiceClient("BasicHttpBinding_IAMSIntegrationService", "http://tse2-ams-apv/SITAAMSIntegrationService/v2/SITAAMSIntegrationService/");
+            //proxy.UpdateFlight( );
+            root = proxy.GetFlights(_Token, DateTime.Parse("2018-02-08"), DateTime.Parse("2018-02-09"), "TSE", AirportIdentifierType.IATACode);
 
+            Functional.getFlights(root);
+            
+
+
+
+            proxy.Close();
 
         }
     }

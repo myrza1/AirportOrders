@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AirportOrders.Models
+namespace Domain
 {
-    public class flight
+    public class Flight
     {
+        
         //FlightID
         private flightID IDFlight;
 
@@ -40,7 +41,7 @@ namespace AirportOrders.Models
             {
                 return IDFlight.AircraftType;
             }
-            
+
             set
             {
                 IDFlight.AircraftType = value;
@@ -477,8 +478,8 @@ namespace AirportOrders.Models
         public override string ToString()
         {
 
-            return IDFlight.flightNumber + " Date: " + IDFlight.scheduledDate.ToString(); 
-                //FlightNumber + " reg: " + Registration + " Board Airport: " + Registration + " flightID: " + Convert.ToString(FlightSTA) +  " TypeB Address: " + TypeBADDRESS + " qual: " + Qual + " flightSTO: " + FlightSTO;
+            return IDFlight.flightNumber + " Date: " + IDFlight.scheduledDate.ToString();
+            //FlightNumber + " reg: " + Registration + " Board Airport: " + Registration + " flightID: " + Convert.ToString(FlightSTA) +  " TypeB Address: " + TypeBADDRESS + " qual: " + Qual + " flightSTO: " + FlightSTO;
         }
 
         public string fullname
@@ -554,8 +555,8 @@ namespace AirportOrders.Models
             {
                 get
                 {
-                    return flightNumber; 
-                    
+                    return flightNumber;
+
                 }
 
             }
@@ -587,5 +588,6 @@ namespace AirportOrders.Models
         }
 
     }
+
 }
 

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
 using AirportOrders.Models;
+using Domain;
 
 namespace AirportOrders.Data
 {
@@ -16,19 +17,19 @@ namespace AirportOrders.Data
 
         private static AMSIntegrationServiceClient staticProxy()
         {
-            AMSIntegrationServiceClient proxy = new AMSIntegrationServiceClient("BasicHttpBinding_IAMSIntegrationService","http://57.1.127.152/SITAAMSIntegrationService/v2/SITAAMSIntegrationService/");
+            AMSIntegrationServiceClient proxy = new AMSIntegrationServiceClient("BasicHttpBinding_IAMSIntegrationService","http://tse2-ams-apv.aia.local/SITAAMSIntegrationService/v2/SITAAMSIntegrationService/");
             //proxy.UpdateFlight( );
 
             return proxy;
         }
-        public static ObservableCollection<flight> ArrivalFligts;
-        public static ObservableCollection<flight> DepartureFlights;
+        public static ObservableCollection<Flight> ArrivalFligts;
+        public static ObservableCollection<Flight> DepartureFlights;
 
 
         public static void getFlights(XElement root)
         {
-            ArrivalFligts = new ObservableCollection<flight>();
-            DepartureFlights = new ObservableCollection<flight>();
+            ArrivalFligts = new ObservableCollection<Flight>();
+            DepartureFlights = new ObservableCollection<Flight>();
 
             XNamespace xmlns = "http://www.sita.aero/ams6-xml-api-webservice";
             XElement ApiResponse = root.Element(xmlns + "ApiResponse");
@@ -40,7 +41,7 @@ namespace AirportOrders.Data
                 XElement Flights = Data.Element(ns + "Flights");
                 foreach (XElement Flight in Flights.Elements(ns + "Flight"))
                 {
-                    flight selFlight = ParserFlight(Flight);
+                    Flight selFlight = ParserFlight(Flight);
 
 
                     if (selFlight == null) continue;
@@ -69,10 +70,10 @@ namespace AirportOrders.Data
 
         }
 
-        public static ObservableCollection<flight> getFlightsUnion(XElement root)
+        public static ObservableCollection<Flight> getFlightsUnion(XElement root)
         {
 
-            ObservableCollection<flight> flights = new ObservableCollection<flight>();
+            ObservableCollection<Flight> flights = new ObservableCollection<Flight>();
 
             XNamespace xmlns = "http://www.sita.aero/ams6-xml-api-webservice";
             XElement ApiResponse = root.Element(xmlns + "ApiResponse");
@@ -84,7 +85,7 @@ namespace AirportOrders.Data
                 XElement Flights = Data.Element(ns + "Flights");
                 foreach (XElement Flight in Flights.Elements(ns + "Flight"))
                 {
-                    flight selFlight = ParserFlight(Flight);
+                    Flight selFlight = ParserFlight(Flight);
                     flights.Add(selFlight);
                 }
 
@@ -107,15 +108,15 @@ namespace AirportOrders.Data
 
         }
 
-        private static flight ParserFlight(XElement FlightsElm)
+        private static Flight ParserFlight(XElement FlightsElm)
         {
-            if (!FlightsElm.Value.Contains(App.Current.Properties["Username"].ToString())) return null;
+            //if (!FlightsElm.Value.Contains(App.Current.Properties["Username"].ToString())) return null;
 
-            flight selFlight = new flight();
-            selFlight.NeedServices = new ObservableCollection<flight.flightServiceNeed>();
-            selFlight.Services = new ObservableCollection<flight.flihghtService>();
-            selFlight.Activity = new ObservableCollection<flight.structActivity>();
-            selFlight.Event = new ObservableCollection<flight.structEvent>();
+            Flight selFlight = new Flight();
+            selFlight.NeedServices = new ObservableCollection<Flight.flightServiceNeed>();
+            selFlight.Services = new ObservableCollection<Flight.flihghtService>();
+            selFlight.Activity = new ObservableCollection<Flight.structActivity>();
+            selFlight.Event = new ObservableCollection<Flight.structEvent>();
 
             try
             {
@@ -278,7 +279,7 @@ namespace AirportOrders.Data
                                 var list = ServicesCheklist.listsets.Where(c => c.Needfname == value.Attribute("propertyName").Value).Select(c => c);
                                 if (list.Count() > 0)
                                 {
-                                    flight.flightServiceNeed listserv = new flight.flightServiceNeed();
+                                    Flight.flightServiceNeed listserv = new Flight.flightServiceNeed();
                                     listserv.name = list.First().Needfname;
                                     listserv.value = bool.Parse(value.Value);
                                     selFlight.NeedServices.Add(listserv);
@@ -289,7 +290,7 @@ namespace AirportOrders.Data
                                     if (list.Count() > 0)
                                     {
                                         CLSet fclset = list.First();
-                                        flight.flihghtService listserv = new flight.flihghtService();
+                                        Flight.flihghtService listserv = new Flight.flihghtService();
                                         listserv.name = fclset.Fieldname;
                                         //listserv.fieldcountname = fclset.Fieldvalue;
                                         listserv.value = value.Value;
@@ -302,7 +303,7 @@ namespace AirportOrders.Data
                                         {
 
                                             CLSet fclset = list.First();
-                                            flight.flihghtService listserv = new flight.flihghtService();
+                                            Flight.flihghtService listserv = new Flight.flihghtService();
                                             listserv.name = fclset.Fieldvalue;
                                             //listserv.fieldcountname = fclset.Fieldvalue;
                                             listserv.value = value.Value;
@@ -330,12 +331,12 @@ namespace AirportOrders.Data
                             var list = ServicesCheklist.listsets.Where(c => c.Tablename == tablevalue.Attribute("propertyName").Value).Select(c => c);
                             if (list.Count() > 0)
                             {
-                                flight.flihghtService listserv = new flight.flihghtService();
+                                Flight.flihghtService listserv = new Flight.flihghtService();
                                 listserv.name = list.First().Tablename;
-                                listserv.tablevalue = new ObservableCollection<flight.TableValue>();
+                                listserv.tablevalue = new ObservableCollection<Flight.TableValue>();
                                 foreach (XElement row in tablevalue.Elements(ns + "Row"))
                                 {
-                                    flight.TableValue tablerow = new flight.TableValue();
+                                    Flight.TableValue tablerow = new Flight.TableValue();
                                     foreach (XElement value in row.Elements(ns + "Value"))
                                     {
                                         if (value.Attribute("propertyName").Value.Contains("DATE_BEGIN"))
@@ -403,7 +404,7 @@ namespace AirportOrders.Data
                     foreach (XElement activity in flightState.Elements(ns + "Activity"))
                     {
                         selFlight.ActivityEventExist = true;
-                        flight.structActivity elementActivity = new flight.structActivity();
+                        Flight.structActivity elementActivity = new Flight.structActivity();
                         elementActivity.code = activity.Attribute("code").Value;
                         foreach (XElement value in activity.Elements(ns + "Value"))
                         {
@@ -473,7 +474,7 @@ namespace AirportOrders.Data
 
                     foreach (XElement varevent in flightState.Elements(ns + "Event"))
                     {
-                        flight.structEvent elementEvent = new flight.structEvent();
+                        Flight.structEvent elementEvent = new Flight.structEvent();
                         elementEvent.code = varevent.Attribute("code").Value;
                         foreach (XElement value in varevent.Elements(ns + "Value"))
                         {
